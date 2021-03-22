@@ -9,6 +9,7 @@ class Authtesting extends Controller
 {
     public function index(Request $request){
         // dd($request->method());
-        dd(Auth::user());
+        // dd(Auth::user());
+        dd($request->session()->token());
     }
 }
