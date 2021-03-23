@@ -6,6 +6,8 @@ use App\Http\Controllers\Authtesting;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\DataController;
+use App\Models\Article;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +37,8 @@ Route::prefix('/admin')->name('admin')->group(function(){
     Route::post('/registerAdmin','AdminUserController@register');
     Route::get('/loginAdmin', 'AdminUserController@authenticate')->middleware('jwtauth');
     Route::post('/logout','LoginController@logout')->name('logout');
+});
+
+Route::get('/getarticles', function(){
+    return response()->json(DB::table('articles')->get());
 });
