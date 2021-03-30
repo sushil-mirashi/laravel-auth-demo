@@ -20,6 +20,10 @@ class AdminUserController extends Controller
             //         'model' => AdminUsers::class,
             //     ]]);
         }
+    
+    public function index(){
+        return view('auth.loginAdmin');
+    }     
 
     public function authenticate(Request $request)
     {
@@ -56,9 +60,9 @@ class AdminUserController extends Controller
              'password' => Hash::make($request->get('password')),
         ]);
 
-        $token = JWTAuth::fromUser($user);
+        // $token = JWTAuth::fromUser($user);
 
-        return response()->json(compact('user','token'),201);
+        return response()->json(compact('user'),200);
     }
 
     public function getAuthenticatedUser()

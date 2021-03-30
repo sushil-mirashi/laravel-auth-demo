@@ -41,4 +41,19 @@ Route::prefix('/admin')->name('admin')->group(function(){
 
 Route::get('/getarticles', function(){
     return response()->json(DB::table('articles')->get());
+    // return Article::all();
+});
+
+Route::get('/getarticles/{id}', function($id){
+    return response()->json(Article::findOrFail($id));
+    // return Article::all();
+});
+
+Route::post('/createarticle', function(Request $request){
+    $addArticle = Article::create([
+        'title'=>$request->title,
+        'content'=>$request->content,
+    ]);
+
+    return json_encode(['success'=>$addArticle]);
 });

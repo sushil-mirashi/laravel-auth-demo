@@ -4,6 +4,10 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Http\Controllers\Authtesting;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +17,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        commands\testCommand::class
     ];
 
     /**
@@ -24,7 +28,21 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('command:test')->everyMinute()->appendOutputTo('public/testScheduler.txt')
+        ->before(function(){
+            Log::info('task is about to perform');
+        })->onSuccess(function(){
+            Log::info('task executed successfully');
+        })->onFailure(function(){
+            Log::error('task failed successfully');
+        })->pingOnSuccess('www.facebook.com');
+        // $schedule->call(function(){
+        //     DB::table('scheduled_insert')
+        //     ->insert([
+        //         'Random_string' => Str::random(8),
+        //     ]);
+        // })->everyMinute()->appendOutputTo('public/testScheduler.txt');
+        // $schedule->call('App\Http\Controllers\Authtesting@index')->everyTwoMinutes();
     }
 
     /**

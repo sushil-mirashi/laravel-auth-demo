@@ -24,6 +24,8 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
+    protected  $primaryKey = 'user_id';
+
     protected $fillable = [
         'name',
         'email',
@@ -68,5 +70,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function article()
+    {
+        return $this->hasMany(Article::class,'user_id','');
     }
 }

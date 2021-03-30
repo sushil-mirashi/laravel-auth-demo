@@ -12,5 +12,11 @@ class Article extends Model
     protected $fillable =[
         'title',
         'content',
+        'status'
     ];
+
+public function user()
+        {
+            return $this->belongsTo(User::class,'user_id');
+        }
 }

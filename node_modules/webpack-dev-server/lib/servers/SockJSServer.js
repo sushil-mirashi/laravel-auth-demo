@@ -26,9 +26,7 @@ const BaseServer = require('./BaseServer');
   };
 }
 
-module.exports = class SockJSServer extends (
-  BaseServer
-) {
+module.exports = class SockJSServer extends BaseServer {
   // options has: error (function), debug (function), server (http/s server), path (string)
   constructor(server) {
     super(server);
@@ -48,7 +46,7 @@ module.exports = class SockJSServer extends (
       },
     });
 
-    this.socket.installHandlers(this.server.listeningApp, {
+    this.socket.installHandlers(this.server.server, {
       prefix: this.server.options.client.path,
     });
   }

@@ -3,14 +3,51 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Collection;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserController extends Controller
 {
+
+    public function getArticlesUser()
+    {
+        // $user = User::findOrFail(1)->article()->createMany([[
+        //     'title'=>'create method 1',
+        //     'content'=>'create content 1',
+        // ],[
+        //     'title'=>'create method 2',
+        //     'content'=>'create content 2',
+        // ]]);
+        // $newPost = new Article(['title'=>'testing eloquent rel 4','content'=>'ssssssssssssssssss.']);
+        // $user->article()->save($newPost);
+        // dd($user->article);
+        // return User::find(1)->article->sortByDesc('id');
+        // return $user->article->last();
+        $collection = collect([1,2,3,4,4,5,6,6,6,4]);
+        // $check = $collection->contains(function($num){
+        //     return $num < 6;
+        // });
+            
+        $altered = $collection->filter(function($num){ 
+            return $num + 1;
+        });
+        // dd($altered->all());
+        $data = new Collection([
+            10 => ['user' => 1, 'skill' => 1, 'roles' => ['Role_1', 'Role_3']],
+            20 => ['user' => 2, 'skill' => 1, 'roles' => ['Role_1', 'Role_2']],
+            30 => ['user' => 3, 'skill' => 2, 'roles' => ['Role_1']],
+            40 => ['user' => 4, 'skill' => 2, 'roles' => ['Role_2']],
+        ]);
+
+        // $grouped = $data->groupBy('skill');
+
+        
+    }
 
     public function authenticate(Request $request)
     {
